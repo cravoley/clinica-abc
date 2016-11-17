@@ -1,4 +1,4 @@
-package br.com.unisinos.clinica.abc.model;
+package br.com.unisinos.clinica.abc.model.usuario;
 
 public enum TipoUsuario {
 	NUTRICIONISTA,
