@@ -1,6 +1,5 @@
 package br.com.unisinos.clinica.abc.controller;
 
-import org.junit.Assert;
 
 import br.com.unisinos.clinica.abc.model.tratamento.consulta.agenda.ItemAgenda;
 import br.com.unisinos.clinica.abc.service.AgendarConsultaService;
