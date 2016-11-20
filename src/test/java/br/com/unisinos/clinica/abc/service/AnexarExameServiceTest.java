@@ -2,19 +2,16 @@ package br.com.unisinos.clinica.abc.service;
 
 import br.com.unisinos.clinica.abc.dao.ExamesDAO;
 import br.com.unisinos.clinica.abc.dao.PacienteDAO;
-import br.com.unisinos.clinica.abc.test.util.BaseTest;
+import br.com.unisinos.clinica.abc.test.util.TestBase;
 import com.google.common.net.MediaType;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 
-import static org.junit.Assert.*;
-
-public class AnexarExameServiceTest extends BaseTest {
+public class AnexarExameServiceTest extends TestBase {
 
 	@Mock private ExamesDAO examesDAO;
 	@Mock private PacienteDAO pacientesDAO;

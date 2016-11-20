@@ -2,7 +2,7 @@ package br.com.unisinos.clinica.abc.controller;
 
 import br.com.unisinos.clinica.abc.controller.response.AnexarExameResponse;
 import br.com.unisinos.clinica.abc.service.AnexarExameService;
-import br.com.unisinos.clinica.abc.test.util.BaseTest;
+import br.com.unisinos.clinica.abc.test.util.TestBase;
 import com.google.common.net.MediaType;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 import org.springframework.mock.web.MockMultipartFile;
 
 
-public class AnexarExameControllerTest extends BaseTest {
+public class AnexarExameControllerTest extends TestBase {
 
 	@Mock
 	private AnexarExameService service;
