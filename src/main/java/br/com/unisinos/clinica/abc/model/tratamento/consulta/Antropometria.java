@@ -1,7 +1,10 @@
 package br.com.unisinos.clinica.abc.model.tratamento.consulta;
 
+import lombok.Data;
+
 import java.util.Date;
 
+@Data
 public class Antropometria {
 	private Date data;
 	private double peso;
