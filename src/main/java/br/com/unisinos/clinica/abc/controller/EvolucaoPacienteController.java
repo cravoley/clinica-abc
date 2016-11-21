@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Locale;
 
 @Controller("/evolucao")
 public class EvolucaoPacienteController {
@@ -52,7 +54,7 @@ public class EvolucaoPacienteController {
 	public String calcularIMC(AdicionarEvolucaoRequest adicionarEvolucaoRequest) {
 
 		double imc = adicionarEvolucaoRequest.getPeso() / (adicionarEvolucaoRequest.getAltura() * adicionarEvolucaoRequest.getAltura());
-		DecimalFormat decimalFormat = new DecimalFormat("00.00");
+		DecimalFormat decimalFormat = new DecimalFormat("00.00", DecimalFormatSymbols.getInstance(Locale.forLanguageTag("PT-BR")));
 		return String.valueOf(decimalFormat.format(imc));
 	}
 }
