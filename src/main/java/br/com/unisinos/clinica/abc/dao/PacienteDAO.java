@@ -28,7 +28,7 @@ public class PacienteDAO {
     }
 
     private Paciente getPacienteByName(String nomePaciente) {
-        return this.repository.findOneByName(nomePaciente);
+        return this.repository.findOneByNome(nomePaciente);
     }
 
     public Paciente cadastrarPaciente(CadastrarPacienteRequest request) {

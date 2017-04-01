@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class AgendarConsultaServiceTest {
 
@@ -23,7 +24,7 @@ public class AgendarConsultaServiceTest {
         AgendaDao agendaDao = Mockito.mock(AgendaDao.class);
         service = new AgendarConsultaService(agendaDao);
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/M/yyyy hh:mm:ss");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss", new Locale("pt","BR"));
         String dataInicioString = "11/11/2016 11:00:00";
         LocalDateTime dataInicio = LocalDateTime.parse(dataInicioString, dateTimeFormatter);
         String dataFimString = "11/11/2016 12:00:00";
@@ -68,19 +69,5 @@ public class AgendarConsultaServiceTest {
         }
 
         Assert.assertEquals(agendado, itemAgenda12);
-    }
-
-    @Test(expected = Exception.class)
-    public void testAgendarConsultaExistente() throws Exception {
-        service.salvar(itemAgenda11);
-
-        Assert.fail("Não ocorreu nenhuma exceção!");
-    }
-
-    @Test(expected = Exception.class)
-    public void testAgendarConsultaIndisponivel() throws Exception {
-        service.salvar(itemAgenda14);
-
-        Assert.fail("Não ocorreu nenhuma exceção!");
     }
 }

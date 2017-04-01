@@ -25,7 +25,7 @@ public class PacienteDAOTest {
     public void hasPrimeiraConsulta() throws Exception {
         PacienteFixtureBuilder pacienteFixtureBuilder = new PacienteFixtureBuilder().withName("Valdo").withPrimeiraConsulta(true);
         String paciente = "Valdo";
-        when(repository.findOneByName(eq(paciente))).thenReturn(pacienteFixtureBuilder.build());
+        when(repository.findOneByNome(eq(paciente))).thenReturn(pacienteFixtureBuilder.build());
 
         boolean hasPrimeiraConsulta = dao.hasPrimeiraConsulta(paciente);
         Assert.assertTrue(hasPrimeiraConsulta);
@@ -34,7 +34,7 @@ public class PacienteDAOTest {
     @Test
     public void pacienteNotFound() throws Exception {
         String paciente = "Valdo";
-        when(repository.findOneByName(eq(paciente))).thenReturn(null);
+        when(repository.findOneByNome(eq(paciente))).thenReturn(null);
 
         boolean hasPrimeiraConsulta = dao.hasPrimeiraConsulta(paciente);
         Assert.assertFalse(hasPrimeiraConsulta);

@@ -6,5 +6,5 @@ import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(MockitoJUnitRunner.class)
 @ContextConfiguration(locations = "classpath*:spring-test-context.xml")
-public class TestBase {
+public abstract class TestBase {
 }

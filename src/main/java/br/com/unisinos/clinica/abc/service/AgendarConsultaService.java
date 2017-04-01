@@ -104,7 +104,7 @@ public class AgendarConsultaService {
 
     // TODO: remover
     public ItemAgenda salvar(ItemAgenda itemAgenda) throws Exception {
-
+/*
         if (!validarCamposObrigatorios(itemAgenda)) {
             throw new Exception("Campos obrigatórios devem ser preenchidos!");
         }
@@ -115,7 +115,7 @@ public class AgendarConsultaService {
 
         if (horarioIndisponivel(itemAgenda)) {
             throw new Exception("Horario indisponível " + itemAgenda.getInicio() + "!");
-        }
+        }*/
 
         return itemAgenda;
     }
