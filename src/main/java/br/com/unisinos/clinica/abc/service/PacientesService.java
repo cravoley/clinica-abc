@@ -1,12 +1,13 @@
 package br.com.unisinos.clinica.abc.service;
 
 import br.com.unisinos.clinica.abc.controller.request.CadastrarPacienteRequest;
-import br.com.unisinos.clinica.abc.controller.response.CadastraPacienteResponse;
-import br.com.unisinos.clinica.abc.controller.response.ListaPacienteResponse;
+import br.com.unisinos.clinica.abc.model.usuario.impl.Paciente;
+
+import java.util.List;
 
 public interface PacientesService {
 
-    ListaPacienteResponse buscaPacientes();
+    Paciente cadastrarPaciente(CadastrarPacienteRequest request);
 
-    CadastraPacienteResponse cadastrarPaciente(CadastrarPacienteRequest request);
+    List<Paciente> buscaPacientes(Integer page);
 }

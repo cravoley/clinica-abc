@@ -6,7 +6,9 @@ import br.com.unisinos.clinica.abc.test.util.TestBase;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.*;
 
 public class PacientesControllerTest extends TestBase {
 
@@ -20,19 +22,19 @@ public class PacientesControllerTest extends TestBase {
         //when
         controller.listaPaciente();
         // then
-        Mockito.verify(service, Mockito.times(1)).buscaPacientes();
-        Mockito.verifyNoMoreInteractions(service);
+        verify(service, times(1)).buscaPacientes(anyInt());
+        verifyNoMoreInteractions(service);
     }
 
     @Test
     public void cadastrarPaciente() throws Exception {
         // given
-        CadastrarPacienteRequest cadastrarPacienteRequest = Mockito.mock(CadastrarPacienteRequest.class);
+        CadastrarPacienteRequest cadastrarPacienteRequest = mock(CadastrarPacienteRequest.class);
         //when
         controller.cadastrarPaciente(cadastrarPacienteRequest);
         // then
-        Mockito.verify(service, Mockito.times(1)).cadastrarPaciente(cadastrarPacienteRequest);
-        Mockito.verifyNoMoreInteractions(service);
+        verify(service, times(1)).cadastrarPaciente(cadastrarPacienteRequest);
+        verifyNoMoreInteractions(service);
     }
 
 }

@@ -1,29 +1,36 @@
 package br.com.unisinos.clinica.abc.controller;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import org.junit.Assert;
+import br.com.unisinos.clinica.abc.controller.request.AgendarRequest;
+import br.com.unisinos.clinica.abc.model.tratamento.consulta.agenda.ItemAgenda;
+import br.com.unisinos.clinica.abc.service.AgendarConsultaService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
-import br.com.unisinos.clinica.abc.model.tratamento.consulta.agenda.ItemAgenda;
+import java.text.ParseException;
+
+import static org.mockito.Matchers.any;
 
 public class AgendarConsultaControllerTest {
 
-	AgendarConsultaController controller;
-	ItemAgenda itemAgenda;
+    AgendarConsultaController controller;
+    AgendarConsultaService service;
+    ItemAgenda itemAgenda;
 
-	@Before
-	public void setUp() throws ParseException{
-		controller = new AgendarConsultaController();		
-	}
+    @Before
+    public void setUp() throws ParseException {
+        service = Mockito.mock(AgendarConsultaService.class);
+        controller = new AgendarConsultaController(service);
+    }
 
-	@Test
-	public void testAgendarConsulta() {		
-		Assert.assertTrue(true);
-	}
+    @Test
+    public void testAgendarConsulta() {
+
+        controller.agendar(new AgendarRequest());
+
+        Mockito.verify(service, Mockito.times(1)).adicionarEvento(any(AgendarRequest.class));
+        Mockito.verifyNoMoreInteractions(service);
+    }
 
 }

@@ -1,66 +1,98 @@
 package br.com.unisinos.clinica.abc.model.tratamento.consulta.agenda;
 
-import java.util.Date;
+import br.com.unisinos.clinica.abc.controller.request.AgendarRequest;
+import br.com.unisinos.clinica.abc.model.usuario.impl.Paciente;
 
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
 public class ItemAgenda {
-	private Date inicio;
-	private Date fim;
-	private String descricao;
-	private String local;
-	private Date dataCadastro;
-	private boolean ativo;
-	
-	public ItemAgenda() {
-		dataCadastro = new Date();
-		ativo = true;
-	}
+    @Id
+    @GeneratedValue
+    private Long id;
+    private LocalDateTime inicio;
+    private LocalDateTime fim;
+    private String descricao;
+    private String local;
+    private LocalDateTime dataCadastro;
+    private boolean ativo;
+    @OneToOne
+    private Paciente usuario;
 
-	public Date getInicio() {
-		return inicio;
-	}
+    public ItemAgenda() {
+        dataCadastro = LocalDateTime.now();
+        ativo = true;
+    }
 
-	public void setInicio(Date inicio) {
-		this.inicio = inicio;
-	}
+    public LocalDateTime getInicio() {
+        return inicio;
+    }
 
-	public Date getFim() {
-		return fim;
-	}
+    public void setInicio(LocalDateTime inicio) {
+        this.inicio = inicio;
+    }
 
-	public void setFim(Date fim) {
-		this.fim = fim;
-	}
+    public LocalDateTime getFim() {
+        return fim;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public void setFim(LocalDateTime fim) {
+        this.fim = fim;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
-	public String getLocal() {
-		return local;
-	}
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 
-	public void setLocal(String local) {
-		this.local = local;
-	}
+    public String getLocal() {
+        return local;
+    }
 
-	public Date getDataCadastro() {
-		return dataCadastro;
-	}
+    public void setLocal(String local) {
+        this.local = local;
+    }
 
-	public void setDataCadastro(Date dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
 
-	public boolean isAtivo() {
-		return ativo;
-	}
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
+    public boolean isAtivo() {
+        return ativo;
+    }
 
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public Paciente getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Paciente usuario) {
+        this.usuario = usuario;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public static ItemAgenda fromRequest(AgendarRequest request) {
+        ItemAgenda itemAgenda = new ItemAgenda();
+        itemAgenda.setInicio(request.getHorarioConsulta());
+        itemAgenda.setDescricao(request.getDescricao());
+        return itemAgenda;
+    }
 }

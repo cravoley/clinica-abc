@@ -1,56 +1,65 @@
 package br.com.unisinos.clinica.abc.model.tratamento.consulta.agenda;
 
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 
+@Entity
 public class HorarioIndisponivel {
-	private int diaSemana;
-	private Date horaInicio;
-	private Date horaFim;
-	private char recorrente;
-	private String motivo;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-	public HorarioIndisponivel() {
-		recorrente = '0';
-	}
+    private DayOfWeek diaSemana;
+    private LocalTime horaInicio;
+    private LocalTime horaFim;
+    private char recorrente;
+    private String motivo;
 
-	public int getDiaSemana() {
-		return diaSemana;
-	}
+    public HorarioIndisponivel() {
+        recorrente = '0';
+    }
 
-	public void setDiaSemana(int diaSemana) {
-		this.diaSemana = diaSemana;
-	}
+    public DayOfWeek getDiaSemana() {
+        return diaSemana;
+    }
 
-	public Date getHoraInicio() {
-		return horaInicio;
-	}
+    public void setDiaSemana(DayOfWeek diaSemana) {
+        this.diaSemana = diaSemana;
+    }
 
-	public void setHoraInicio(Date horaInicio) {
-		this.horaInicio = horaInicio;
-	}
+    public LocalTime getHoraInicio() {
+        return horaInicio;
+    }
 
-	public Date getHoraFim() {
-		return horaFim;
-	}
+    public void setHoraInicio(LocalTime horaInicio) {
+        this.horaInicio = horaInicio;
+    }
 
-	public void setHoraFim(Date horaFim) {
-		this.horaFim = horaFim;
-	}
+    public LocalTime getHoraFim() {
+        return horaFim;
+    }
 
-	public char getRecorrente() {
-		return recorrente;
-	}
+    public void setHoraFim(LocalTime horaFim) {
+        this.horaFim = horaFim;
+    }
 
-	public void setRecorrente(char recorrente) {
-		this.recorrente = recorrente;
-	}
+    public char getRecorrente() {
+        return recorrente;
+    }
 
-	public String getMotivo() {
-		return motivo;
-	}
+    public void setRecorrente(char recorrente) {
+        this.recorrente = recorrente;
+    }
 
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
-	}
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
 
 }
