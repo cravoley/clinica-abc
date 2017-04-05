@@ -1,109 +1,36 @@
 package br.com.unisinos.clinica.abc.controller;
 
-import java.util.Date;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-
-import br.com.unisinos.clinica.abc.controller.response.AgendarConsultaResponse;
+import br.com.unisinos.clinica.abc.controller.request.AgendarRequest;
 import br.com.unisinos.clinica.abc.model.tratamento.consulta.agenda.ItemAgenda;
 import br.com.unisinos.clinica.abc.service.AgendarConsultaService;
-import br.com.unisinos.clinica.abc.test.util.TestBase;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
 
+import java.text.ParseException;
 
-public class AgendarConsultaControllerTest extends TestBase {
+import static org.mockito.Matchers.any;
 
-	@Mock
-	private AgendarConsultaService service;
+public class AgendarConsultaControllerTest {
 
-	@InjectMocks
-	private AgendarConsultaController controller;
+    AgendarConsultaController controller;
+    AgendarConsultaService service;
+    ItemAgenda itemAgenda;
 
+    @Before
+    public void setUp() throws ParseException {
+        service = Mockito.mock(AgendarConsultaService.class);
+        controller = new AgendarConsultaController(service);
+    }
 
-	@Test
-	public void caminhoFeliz() throws Exception {
-		ItemAgenda itemAgenda = new ItemAgenda();
-		Date data = new Date();
-		itemAgenda.setInicio(data);
-		itemAgenda.setFim(data);
+    @Test
+    public void testAgendarConsulta() {
 
-		// Mock service response
-		Mockito.when(service.hasHorarioIndisponivelNaData(data, data)).thenReturn(false);
-		Mockito.when(service.hasItemAgendaNaData(data, data)).thenReturn(false);
-		Mockito.when(service.validarCamposObrigatorios(itemAgenda)).thenReturn(true);
-		Mockito.when(service.save(itemAgenda)).thenReturn(true);
+        controller.agendar(new AgendarRequest());
 
-		AgendarConsultaResponse response = controller.agendarConsulta(itemAgenda);
+        Mockito.verify(service, Mockito.times(1)).adicionarEvento(any(AgendarRequest.class));
+        Mockito.verifyNoMoreInteractions(service);
+    }
 
-		Assert.assertFalse(response.horarioIndisponivel);
-		Assert.assertFalse(response.itemAgendadoNaData);
-		Assert.assertTrue(response.itemAgenda);
-		Assert.assertTrue(response.salvo);
-	}
-	
-	@Test
-	public void horarioIndisponivel() throws Exception {
-		ItemAgenda itemAgenda = new ItemAgenda();
-		Date data = new Date();
-		itemAgenda.setInicio(data);
-		itemAgenda.setFim(data);
-
-		// Mock service response
-		Mockito.when(service.hasHorarioIndisponivelNaData(data, data)).thenReturn(true);
-		Mockito.when(service.hasItemAgendaNaData(data, data)).thenReturn(false);
-		Mockito.when(service.validarCamposObrigatorios(itemAgenda)).thenReturn(true);
-		Mockito.when(service.save(itemAgenda)).thenReturn(true);
-
-		AgendarConsultaResponse response = controller.agendarConsulta(itemAgenda);
-
-		Assert.assertTrue(response.horarioIndisponivel);
-		Assert.assertFalse(response.itemAgendadoNaData);
-		Assert.assertTrue(response.itemAgenda);
-		Assert.assertTrue(response.salvo);
-	}
-
-	@Test
-	public void itemAgendaNaData() throws Exception {
-		ItemAgenda itemAgenda = new ItemAgenda();
-		Date data = new Date();
-		itemAgenda.setInicio(data);
-		itemAgenda.setFim(data);
-
-		// Mock service response
-		Mockito.when(service.hasHorarioIndisponivelNaData(data, data)).thenReturn(false);
-		Mockito.when(service.hasItemAgendaNaData(data, data)).thenReturn(true);
-		Mockito.when(service.validarCamposObrigatorios(itemAgenda)).thenReturn(true);
-		Mockito.when(service.save(itemAgenda)).thenReturn(true);
-
-		AgendarConsultaResponse response = controller.agendarConsulta(itemAgenda);
-
-		Assert.assertFalse(response.horarioIndisponivel);
-		Assert.assertTrue(response.itemAgendadoNaData);
-		Assert.assertTrue(response.itemAgenda);
-		Assert.assertTrue(response.salvo);
-	}
-
-	@Test
-	public void camposObrigatoriosNaoPreenchidos() throws Exception {
-		ItemAgenda itemAgenda = new ItemAgenda();
-		Date data = new Date();
-		itemAgenda.setInicio(data);
-		itemAgenda.setFim(data);
-
-		// Mock service response
-		Mockito.when(service.hasHorarioIndisponivelNaData(data, data)).thenReturn(false);
-		Mockito.when(service.hasItemAgendaNaData(data, data)).thenReturn(false);
-		Mockito.when(service.validarCamposObrigatorios(itemAgenda)).thenReturn(false);
-		Mockito.when(service.save(itemAgenda)).thenReturn(true);
-
-		AgendarConsultaResponse response = controller.agendarConsulta(itemAgenda);
-
-		Assert.assertFalse(response.horarioIndisponivel);
-		Assert.assertFalse(response.itemAgendadoNaData);
-		Assert.assertFalse(response.itemAgenda);
-		Assert.assertTrue(response.salvo);
-	}
 }

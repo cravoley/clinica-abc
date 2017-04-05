@@ -1,45 +1,31 @@
 package br.com.unisinos.clinica.abc.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import br.com.unisinos.clinica.abc.controller.response.AnexarExameResponse;
-import br.com.unisinos.clinica.abc.controller.response.AgendarConsultaResponse;
+import br.com.unisinos.clinica.abc.controller.request.AgendarRequest;
 import br.com.unisinos.clinica.abc.model.tratamento.consulta.agenda.ItemAgenda;
 import br.com.unisinos.clinica.abc.service.AgendarConsultaService;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller("/consulta")
+import javax.inject.Inject;
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping("/consulta")
 public class AgendarConsultaController {
 
-	@Autowired
-	private AgendarConsultaService service;
+    private final AgendarConsultaService service;
 
+    @Inject
+    AgendarConsultaController(AgendarConsultaService service) {
+        this.service = service;
+    }
 
-	@ResponseBody
-	@RequestMapping(value="/agendar",method = RequestMethod.POST)
-	public AgendarConsultaResponse agendarConsulta(@RequestParam("itemAgenda") final ItemAgenda itemAgenda) throws Exception {
-		AgendarConsultaResponse response = new AgendarConsultaResponse();
-		if (!service.validarCamposObrigatorios(itemAgenda)) {
-			response.itemAgenda = false;
-		}
-
-		if (service.hasHorarioIndisponivelNaData(itemAgenda.getInicio(), itemAgenda.getFim())) {
-			response.horarioIndisponivel = true;
-		}
-		
-		if (service.hasItemAgendaNaData(itemAgenda.getInicio(), itemAgenda.getFim())) {
-			response.itemAgendadoNaData = true;
-		}
-
-		response.salvo = service.save(itemAgenda);
-
-		return response;
-	}
-
-
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ItemAgenda agendar(@Valid @RequestBody AgendarRequest request) {
+        return service.adicionarEvento(request);
+    }
 }
